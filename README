@@ -1,0 +1,41 @@
+Manasa Srikanth
+
+Part 0:
+    4. For each value of i, “Yo!” is printed. 
+       Each time i is incremented a new child process 
+       is spawned and the parent process waits for 
+       the child process to end and prints “Yo!” i number of times. 
+       It stops after i reaches 5. 
+    
+Part 1:
+    1. Using just printf()
+        When running ./who_runs_first  | sort  | uniq -c > output.txt I observed that
+        there are exactly 1000 counts of "child parent" and 250156 of "parent".
+
+    2.After adding fflush()
+        I noticed that "child parent" gets printed a much lower number of times (< 10),
+        and "parent child" gets printed a little under 1000. I also noticed that every time I ran the program the counts were different, but around the same range. The sum of their counts equals 1000.  
+
+
+    3. When using write()
+        I noticed that "childparent" gets printed a fewer number of times (< 10) and "parentchild"
+        gets printed a little under 1000. There were some instances where "childparent" didn't get printed at all and "parentchild" had a count of 1000. The sum of their counts equals 1000. There is also no space between the child and parent text. 
+
+        - write() is a system call which interacts with the OS, whereas printf is a library function
+        and process, so it will spawn a new instance of printf when it is called, whereas write() 
+        will only be called once. Write also will only print the raw data, whereas printf is more
+        focused on the ui/graphical portion. 
+
+    When using sleep()
+        - When using sleep(0.1) there are many more parentchild lines than childparent. 
+        - When using sleep(1.0) the program is observably much slower, but there are still more parentchild lines than childparent. 
+
+Part 2: 64- and 32-bit Process Memory Images
+    One line of what I see: 000055cca493d000      4K r---- who_runs_first
+
+    I think the memory map shows an address and how many kilobytes are being stored at that address. 
+    The r-- and w-- seem to be related to readable/writable memory and the last column seems to show what program is using it. 
+
+
+
+    
